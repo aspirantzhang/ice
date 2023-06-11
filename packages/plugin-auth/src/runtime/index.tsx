@@ -16,6 +16,7 @@ const runtime: RuntimePlugin = async ({ appContext, useConfig, addProvider, addW
 
   const AuthProviderWrapper: AppProvider = ({ children }) => {
     const [state, setState] = React.useState<AuthType>(initialAuth);
+    const clearAuth = () => setState({});
 
     const updateState: InjectProps['setAuth'] = (newState = {}) => {
       setState({
@@ -23,7 +24,7 @@ const runtime: RuntimePlugin = async ({ appContext, useConfig, addProvider, addW
         ...newState,
       });
     };
-    return <AuthProvider value={[state, updateState]}>{children}</AuthProvider>;
+    return <AuthProvider value={[state, updateState, clearAuth]}>{children}</AuthProvider>;
   };
   addProvider(AuthProviderWrapper);
 

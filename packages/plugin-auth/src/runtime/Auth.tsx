@@ -11,6 +11,7 @@ const AuthProvider = Context.Provider;
 interface InjectProps {
   auth: ContextType[0];
   setAuth: ContextType[1];
+  clearAuth: ContextType[2];
 }
 
 const useAuth = (): ContextType => {
@@ -21,8 +22,8 @@ const useAuth = (): ContextType => {
 // class 组件支持 Hoc 用法
 function withAuth<Props>(Component: React.ComponentType<Props>) {
   const AuthWrapped = (props: Props) => {
-    const [auth, setAuth] = useAuth();
-    return <Component {...props} auth={auth} setAuth={setAuth} />;
+    const [auth, setAuth, clearAuth] = useAuth();
+    return <Component {...props} auth={auth} setAuth={setAuth} clearAuth={clearAuth} />;
   };
   return AuthWrapped;
 }
